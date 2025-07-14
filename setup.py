@@ -19,6 +19,13 @@ setup(
             'urdf/psm.classic.urdf.xacro',
             'urdf/psm.tool.xacro',
         ]),
+        # Install all adaptor files and meshes
+        ('share/' + package_name + '/urdf/adaptor', [
+            'urdf/adaptor/adaptor.urdf',
+        ]),
+        ('share/' + package_name + '/urdf/adaptor/meshes', [
+            'urdf/adaptor/meshes/Da_vinci_si_manipulator.stl',
+        ]),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

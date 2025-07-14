@@ -2,7 +2,7 @@
 <robot name="psm" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- Include the adaptor URDF -->
-    <xacro:include filename="$(find adaptor)/adaptor.urdf" />
+    <xacro:include filename="adaptor/adaptor.urdf" />
 
     <xacro:macro name="psm_classic" params="tool parent_link">
 
