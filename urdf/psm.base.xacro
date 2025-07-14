@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Mathematical Constants -->
+    <xacro:property name="PI" value="3.1415926535897931" />
+
+    <!-- Macro for Minimal Tool Chain -->
+    <xacro:macro name="psm_base" params="prefix">
+
+        <!-- Link 3: Tool Main Link -->
+        <link name="${prefix}_tool_main_link">
+            <visual>
+                <origin rpy="0 0 ${PI/2}" xyz="0 0 0.041" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_main.stl" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin rpy="0 0 ${PI/2}" xyz="0 0 0.041" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_main.stl" />
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Link 4: Tool Wrist Link -->
+        <link name="${prefix}_tool_wrist_link">
+            <visual>
+                <origin rpy="0 0 ${PI/2}" xyz="0 0 -0.0091" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_wrist_link.stl" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin rpy="0 0 ${PI/2}" xyz="0 0 -0.0091" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_wrist_link.stl" />
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Link 4-1: Tool Wrist Shaft Link -->
+        <link name="${prefix}_tool_wrist_shaft_link">
+            <visual>
+                <origin rpy="${PI/2} 0 0" xyz="0 0.00401 0" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_wrist_shaft_link.stl" />
+                </geometry>
+            </visual>
+            <collision>
+                <origin rpy="${PI/2} 0 0" xyz="0 0.00401 0" />
+                <geometry>
+                    <mesh filename="package://psm_description/meshes/Classic/tool_wrist_shaft_link.stl" />
+                </geometry>
+            </collision>
+        </link>
+
+        <!-- Joint: Outer Roll Joint: Main to Wrist -->
+        <joint name="${prefix}_outer_roll" type="revolute">
+            <parent link="${prefix}_tool_main_link" />
+            <child link="${prefix}_tool_wrist_link" />
+            <axis xyz="0 0 1" />
+            <origin rpy="0 0 0" xyz="0 0 0.4162" />
+            <limit lower="-4.53786" upper="4.53786" velocity=".4" effort="1000" />
+        </joint>
+
+        <!-- Joint: Outer Roll Shaft Joint: Wrist to Wrist Shaft -->
+        <joint name="${prefix}_outer_roll_shaft" type="fixed">
+            <parent link="${prefix}_tool_wrist_link" />
+            <child link="${prefix}_tool_wrist_shaft_link" />
+            <axis xyz="0 0 1" />
+            <origin rpy="0 0 0" xyz="0 0 0.0" />
+        </joint>
+
+    </xacro:macro>
+</robot>

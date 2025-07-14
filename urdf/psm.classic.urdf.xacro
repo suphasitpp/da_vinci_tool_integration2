@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot name="psm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Include the adaptor URDF -->
+    <xacro:include filename="$(find adaptor)/adaptor.urdf" />
+
+    <xacro:macro name="psm_classic" params="tool parent_link">
+
+    <!-- Tool Arguments -->
+    <!-- Select tool_name from blade, caudier_blade, caudier, sca_blade, sca, snake -->
+    <xacro:property name="tool_name" default="${tool}" />
+    <xacro:property name="prefix" default="PSM" />
+
+    <!-- Tool Origin Arguments: for Caudier tool -->
+    <xacro:if value="${tool_name == 'caudier'}">
+        <xacro:property name="xyz" default="-0.1 0.0 0.1" />
+        <xacro:property name="rpy" default="0.0 0.0 ${PI}" />
+    </xacro:if>
+
+    <!-- Tool Origin Arguments: for all other tools -->
+    <xacro:unless value="${tool_name == 'caudier'}">
+        <xacro:property name="xyz" default="-0.020 0.0 0.05" />
+        <xacro:property name="rpy" default="0.0 ${PI/2} ${PI}" />
+    </xacro:unless>
+
+    <!-- Macros -->
+    <xacro:include filename="psm.base.xacro" />
+    <xacro:include filename="psm.tool.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/ros2_control/Classic/psm.base.ros2_control.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/ros2_control/Classic/psm.tool.ros2_control.xacro" />
+
+    <!-- PSM with Tool -->
+    <xacro:psm_base prefix="${prefix}" />
+    <xacro:psm_tool
+        tool_name="${tool_name}"
+        prefix="${prefix}"
+        parent_link="${prefix}_tool_wrist_shaft_link" />
+
+    <!-- ROS2 Control -->
+    <ros2_control name="${prefix}_psm_classic_${tool_name}_ros2_control" type="system">
+
+        <hardware>
+            <plugin>fake_components/GenericSystem</plugin>
+        </hardware>
+
+        <xacro:psm_base_ros2_control prefix="${prefix}" />
+        <xacro:psm_tool_ros2_control tool_name="${tool_name}" prefix="${prefix}" />
+
+    </ros2_control>
+
+    <!-- Joint 1: Connect parent_link (LBR end-effector) to adaptor base_link -->
+    <joint name="lbr_to_adaptor" type="fixed">
+        <parent link="${parent_link}"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0.02" rpy="${PI/2} 0 0"/>
+    </joint>
+
+    <!-- Joint 2: Connect adaptor base_link to PSM base -->
+    <joint name="adaptor_to_psm" type="fixed">
+        <parent link="base_link"/>
+        <child link="${prefix}_tool_main_link"/>
+        <origin xyz="0.0 0.1 -0.01" rpy="${PI} 0 ${-PI/2}"/>
+    </joint>
+
+    </xacro:macro>
+
+
+</robot>

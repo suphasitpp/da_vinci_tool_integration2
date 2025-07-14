@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!-- top level -->
+<robot name="med7attached" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- include the lbr med macro -->
+    <xacro:include filename="$(find lbr_description)/urdf/med7/med7_description.xacro" />
+
+    <xacro:arg name="robot_name" default="lbr" />
+    <xacro:arg name="mode" default="true" />
+    <xacro:arg name="system_config_path" default="$(find lbr_description)/ros2_control/lbr_system_config.yaml" />
+    <xacro:arg name="tool" default="sca"/>
+    <xacro:arg name="parent_link" default="lbr_link_ee"/>
+
+    <!-- KDL requires a link without inertia / Gazebo requires a connection to world link or robot
+    will tipple https://github.com/lbr-stack/lbr_fri_ros2_stack/issues/230 -->
+    <link name="world" />
+
+    <!--joint
+        between <robot_name>_world_link and robot_name_link_0-->
+    <joint name="$(arg robot_name)_world_joint" type="fixed">
+        <parent link="world" />
+        <child link="$(arg robot_name)_link_0" />
+    </joint>
+
+    <!-- med -->
+    <xacro:med7
+        robot_name="$(arg robot_name)"
+        mode="$(arg mode)"
+        system_config_path="$(arg system_config_path)" />
+
+    <!-- Mount DaVinci tool (PSM) to the Med 7 end-effector -->
+    <xacro:include filename="psm.classic.urdf.xacro" />
+    <xacro:psm_classic
+        tool="$(arg tool)"
+        parent_link="$(arg parent_link)" />
+</robot>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Macros -->
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.blade.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.caudier.blade.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.caudier.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.sca.blade.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.sca.xacro" />
+    <xacro:include filename="$(find psm_description)/urdf/xacros/Classic/psm.tool.snake.xacro" />
+
+    <!-- Macro for da Vinci PSM tool -->
+    <xacro:macro name="psm_tool" params="tool_name prefix parent_link">
+
+        <xacro:if value="${tool_name == 'blade'}">
+            <xacro:psm_tool_blade prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+        <xacro:if value="${tool_name == 'snake'}">
+            <xacro:psm_tool_snake prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+        <xacro:if value="${tool_name == 'sca'}">
+            <xacro:psm_tool_sca prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+        <xacro:if value="${tool_name == 'sca_blade'}">
+            <xacro:psm_tool_sca_blade prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+        <xacro:if value="${tool_name == 'caudier_blade'}">
+            <xacro:psm_tool_caudier_blade prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+        <xacro:if value="${tool_name == 'caudier'}">
+            <xacro:psm_tool_caudier prefix="${prefix}" parent_link="${parent_link}"/>
+        </xacro:if>
+
+    </xacro:macro>
+
+</robot>
