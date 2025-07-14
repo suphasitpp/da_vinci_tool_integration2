@@ -18,8 +18,8 @@ You must have the following packages in your ROS 2 workspace:
 
 - **[lbr_stack](https://github.com/lbr-stack/lbr_fri_ros2_stack)**
   - Provides the LBR Med7 robot description and related resources.
-- **[dvrk-ros2](https://github.com/jhu-dvrk/dvrk-ros2)**
-  - Provides the da Vinci PSM tool description and related resources.
+- **[dvrk_urdf](https://github.com/shashank3199/dvrk_urdf)**
+  - Provides the da Vinci PSM, ECM, MTM, SUJ, and patient cart URDFs and related resources.
 - **Standard ROS 2 packages:**
   - `robot_state_publisher`
   - `joint_state_publisher_gui`
@@ -36,8 +36,8 @@ cd ~/my_ros2_ws/src
 # LBR stack (required)
 git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git
 
-# dVRK ROS 2 (required)
-git clone https://github.com/jhu-dvrk/dvrk-ros2.git
+# dVRK URDF (required)
+git clone https://github.com/shashank3199/dvrk_urdf.git
 
 # This package
 git clone https://github.com/suphasitpp/da_vinci_tool_integration2.git
