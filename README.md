@@ -1,4 +1,4 @@
-# da_vinci_tool_integration
+# da_vinci_tool_integration (KUKA Med7)
 
 This ROS 2 package provides a combined robot description and launch setup for the KUKA LBR Med7 arm with a da Vinci PSM tool and adaptor, fully self-contained for easy simulation and visualization in RViz2.
 
