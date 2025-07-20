@@ -1,4 +1,4 @@
-# da_vinci_tool_integration (KUKA Med7)
+# da_vinci_tool_integration
 
 This ROS 2 package provides a combined robot description and launch setup for the KUKA LBR Med7 arm with a da Vinci PSM tool and adaptor, fully self-contained for easy simulation and visualization in RViz2.
 
@@ -16,7 +16,7 @@ This ROS 2 package provides a combined robot description and launch setup for th
 
 You must have the following packages in your ROS 2 workspace:
 
-- **[lbr_stack](https://github.com/lbr-stack/lbr_fri_ros2_stack)** (includes multiple packages)
+- **[LBR-Stack](https://github.com/lbr-stack)** (includes multiple packages)
   - `lbr_fri_ros2_stack` - Main stack meta-package
   - `fri` - KUKA FRI client library (automatically included)
   - `lbr_fri_idl` - FRI interface definitions (automatically included)
@@ -37,13 +37,10 @@ You must have the following packages in your ROS 2 workspace:
   - `robot_state_publisher`
   - `joint_state_publisher_gui`
   - `rviz2`
-  - `moveit` and related packages
 
 ---
 
-## Workspace Setup
-
-### Method 1: Recommended (Official LBR Stack Setup)
+## Workspace Setup Example
 
 ```bash
 # Create workspace
@@ -59,34 +56,8 @@ cd src
 git clone https://github.com/shashank3199/dvrk_urdf.git
 git clone https://github.com/suphasitpp/da_vinci_tool_integration2.git
 
-# Install dependencies
+# Build the workspace
 cd ..
-rosdep install --from-paths src -i -r -y
-
-# Build the workspace
-colcon build --symlink-install
-
-# Source the workspace
-source install/setup.bash
-```
-
-### Method 2: Manual Setup (Alternative)
-
-```bash
-# Clone dependencies into your workspace
-cd ~/my_ros2_ws/src
-
-# LBR stack (required) - this will include fri and lbr_fri_idl automatically
-git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git
-
-# dVRK URDF (required)
-git clone https://github.com/shashank3199/dvrk_urdf.git
-
-# This package
-git clone https://github.com/suphasitpp/da_vinci_tool_integration2.git
-
-# Build the workspace
-cd ~/my_ros2_ws
 colcon build --symlink-install
 
 # Source the workspace
