@@ -16,27 +16,9 @@ This ROS 2 package provides a combined robot description and launch setup for th
 
 You must have the following packages in your ROS 2 workspace:
 
-- **[LBR-Stack](https://github.com/lbr-stack)** (includes multiple packages)
-  - `lbr_fri_ros2_stack` - Main stack meta-package
-  - `fri` - KUKA FRI client library (automatically included)
-  - `lbr_fri_idl` - FRI interface definitions (automatically included)
-  - `lbr_fri_ros2` - LBR FRI ROS2 integration
-  - `lbr_ros2_control` - LBR ROS2 control
-  - `lbr_bringup` - LBR bringup utilities
-  - `lbr_description` - LBR robot descriptions
-  - `lbr_moveit` - LBR MoveIt integration
-  - Various MoveIt config packages (med7_moveit_config, etc.)
-- **[dvrk_urdf](https://github.com/shashank3199/dvrk_urdf)** (includes multiple packages)
-  - `psm_description` - da Vinci PSM tool description
-  - `mtm_description` - da Vinci MTM tool description
-  - `ecm_description` - da Vinci ECM tool description
-  - `davinci_core_description` - da Vinci core descriptions
-  - `suj_description` - da Vinci setup joint descriptions
-  - `patient_cart_description` - da Vinci patient cart description
-- **Standard ROS 2 packages:**
-  - `robot_state_publisher`
-  - `joint_state_publisher_gui`
-  - `rviz2`
+- **[LBR-Stack](https://github.com/lbr-stack)** - KUKA LBR robot descriptions and control
+- **[dvrk_urdf](https://github.com/shashank3199/dvrk_urdf)** - da Vinci robot descriptions
+- **Standard ROS 2 packages:** robot_state_publisher, joint_state_publisher_gui, rviz2
 
 ---
 
