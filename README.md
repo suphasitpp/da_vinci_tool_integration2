@@ -36,7 +36,7 @@ vcs import src --input https://raw.githubusercontent.com/lbr-stack/lbr_fri_ros2_
 # Clone additional dependencies
 cd src
 git clone https://github.com/shashank3199/dvrk_urdf.git
-git clone https://github.com/suphasitpp/da_vinci_tool_integration2.git
+git clone https://github.com/suphasitpp/da_vinci_tool_integration.git
 
 # Build the workspace
 cd ..
