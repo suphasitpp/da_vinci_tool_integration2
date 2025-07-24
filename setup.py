@@ -26,6 +26,10 @@ setup(
         ('share/' + package_name + '/urdf/adaptor/meshes', [
             'urdf/adaptor/meshes/Da_vinci_si_manipulator.stl',
         ]),
+        # Install RViz config files
+        ('share/' + package_name + '/rviz', [
+            'rviz/my_robot_config.rviz',
+        ]),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -36,6 +40,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'ik_solver = da_vinci_tool_integration.ik_solver:main',
+            'interactive_target_marker = da_vinci_tool_integration.interactive_target_marker:main',
         ],
     },
 )

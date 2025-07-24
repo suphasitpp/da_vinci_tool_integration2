@@ -55,6 +55,15 @@
             </collision>
         </link>
 
+        <!-- Virtual tip for IK targeting -->
+        <link name="${prefix}_tool_virtual_tip"/>
+
+        <joint name="${prefix}_virtual_tip_dummy" type="fixed">
+          <parent link="${prefix}_tool_main_link"/>
+          <child link="${prefix}_tool_virtual_tip"/>
+          <origin xyz="0 0 0.4152" rpy="0 0 0"/>
+        </joint>
+
         <!-- Joint: Outer Roll Joint: Main to Wrist -->
         <joint name="${prefix}_outer_roll" type="revolute">
             <parent link="${prefix}_tool_main_link" />
