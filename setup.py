@@ -42,6 +42,7 @@ setup(
         'console_scripts': [
             'ik_solver = da_vinci_tool_integration.ik_solver:main',
             'interactive_target_marker = da_vinci_tool_integration.interactive_target_marker:main',
+            'fk_query = da_vinci_tool_integration.fk_query:main',
         ],
     },
 )

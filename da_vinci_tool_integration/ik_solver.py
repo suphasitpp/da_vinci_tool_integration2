@@ -42,6 +42,10 @@ class IKSolver(Node):
         )
 
         self.js_pub = self.create_publisher(JointState, "/joint_states", 10)
+        
+        # ✅ Add publisher for successful IK poses
+        self.success_pose_pub = self.create_publisher(PoseStamped, "/ik_success_pose", 10)
+        
         self.timer = self.create_timer(1.0, self.republish_joint_state)
         self.get_logger().info("IK Solver ready. Listening on /tool_target")
 
@@ -51,6 +55,9 @@ class IKSolver(Node):
         req.ik_request.ik_link_name = self.tip_link
         req.ik_request.pose_stamped = pose_msg
         req.ik_request.timeout.sec = 2
+
+        # Store the original pose for potential success feedback
+        self.current_target_pose = pose_msg
 
         self.ik_client.call_async(req).add_done_callback(self.handle_ik_response)
 
@@ -80,6 +87,16 @@ class IKSolver(Node):
 
             self.js_pub.publish(filtered)
             self.last_joint_state = filtered
+            
+            # ✅ Publish successful pose for marker feedback
+            if hasattr(self, 'current_target_pose'):
+                success_pose = PoseStamped()
+                success_pose.header.frame_id = self.current_target_pose.header.frame_id
+                success_pose.header.stamp = self.get_clock().now().to_msg()
+                success_pose.pose = self.current_target_pose.pose
+                self.success_pose_pub.publish(success_pose)
+                self.get_logger().debug("Published successful IK pose feedback")
+            
             self.get_logger().info(f"Published joint state with {len(filtered.name)} joints.")
 
         except Exception as e:
