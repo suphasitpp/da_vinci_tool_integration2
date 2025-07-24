@@ -43,7 +43,7 @@ class IKSolver(Node):
 
         self.js_pub = self.create_publisher(JointState, "/joint_states", 10)
         
-        # ✅ Add publisher for successful IK poses
+        #  Add publisher for successful IK poses
         self.success_pose_pub = self.create_publisher(PoseStamped, "/ik_success_pose", 10)
         
         self.timer = self.create_timer(1.0, self.republish_joint_state)
@@ -88,7 +88,7 @@ class IKSolver(Node):
             self.js_pub.publish(filtered)
             self.last_joint_state = filtered
             
-            # ✅ Publish successful pose for marker feedback
+            #  Publish successful pose for marker feedback
             if hasattr(self, 'current_target_pose'):
                 success_pose = PoseStamped()
                 success_pose.header.frame_id = self.current_target_pose.header.frame_id

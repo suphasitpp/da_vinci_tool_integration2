@@ -13,7 +13,7 @@ class ToolTargetMarker(Node):
         self.server = InteractiveMarkerServer(self, "tool_target_marker")
         self.pose_pub = self.create_publisher(PoseStamped, "/tool_target", 10)
 
-        # ✅ Add IK success feedback subscription and pose validation
+        # Add IK success feedback subscription and pose validation
         self.success_pose_sub = self.create_subscription(
             PoseStamped,
             "/ik_success_pose",
@@ -46,7 +46,7 @@ class ToolTargetMarker(Node):
         initial_pose.pose = self.marker.pose
         self.last_valid_pose = initial_pose
 
-        # ✅ Add central visual sphere with 3D drag capability
+        # Add central visual sphere with 3D drag capability
         visual_marker = Marker()
         visual_marker.type = Marker.SPHERE
         visual_marker.scale.x = 0.05
@@ -65,7 +65,7 @@ class ToolTargetMarker(Node):
         drag_control.markers.append(visual_marker)
         self.marker.controls.append(drag_control)
 
-        # ✅ Axis-specific rotation + movement
+        # Axis-specific rotation + movement
         for axis in ['x', 'y', 'z']:
             move = InteractiveMarkerControl()
             move.name = f"move_{axis}"
@@ -89,7 +89,7 @@ class ToolTargetMarker(Node):
         self.server.setCallback(self.marker.name, self.feedback_callback)
         self.server.applyChanges()
         
-        # ✅ Validate initial pose by publishing it to IK solver
+        # Validate initial pose by publishing it to IK solver
         self._initial_validation_timer = self.create_timer(0.5, self.validate_initial_pose)  # Small delay to ensure services are ready
         
         self.get_logger().info("Interactive marker ready. Drag the marker in RViz to control tool target.")
@@ -136,7 +136,7 @@ class ToolTargetMarker(Node):
             pose.pose = feedback.pose
             self.pose_pub.publish(pose)
             
-            # ✅ Start validation timer - if no success response comes back, reset pose
+            # Start validation timer - if no success response comes back, reset pose
             self.waiting_for_ik_response = True
             
             # Cancel any existing timer
